@@ -25,8 +25,8 @@ app.get('/prodetails', function(request,response){
 
     //console.log(request.query['prodid']);
      let result={};
-     //console.log('http://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=BhanuAro-WebTech-PRD-116e557a4-e7b7ee98&siteid=0&version=967&ItemID='+request.query['productId']+'&IncludeSelector=Description,Details,ItemSpecifics');
-    requestLib.get('http://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=BhanuAro-WebTech-PRD-116e557a4-e7b7ee98&siteid=0&version=967&ItemID='+request.query['productId']+'&IncludeSelector=Description,Details,ItemSpecifics', (err, res, body) => {
+     //console.log('http://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=[Your App ID]&siteid=0&version=967&ItemID='+request.query['productId']+'&IncludeSelector=Description,Details,ItemSpecifics');
+    requestLib.get('http://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=[Your App ID]&siteid=0&version=967&ItemID='+request.query['productId']+'&IncludeSelector=Description,Details,ItemSpecifics', (err, res, body) => {
            
         if (err!=null) { result.prodetails={};}
           //console.log(body.url);
@@ -37,7 +37,7 @@ app.get('/prodetails', function(request,response){
         });
         //response.send('Hello ');
 
-       requestLib.get('http://svcs.ebay.com/MerchandisingService?OPERATION-NAME=getSimilarItems&SERVICE-NAME=MerchandisingService&SERVICE-VERSION=1.1.0&CONSUMER-ID=BhanuAro-WebTech-PRD-116e557a4-e7b7ee98&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&itemId='+request.query['productId']+'&maxResults=20', (err, res, body) => {
+       requestLib.get('http://svcs.ebay.com/MerchandisingService?OPERATION-NAME=getSimilarItems&SERVICE-NAME=MerchandisingService&SERVICE-VERSION=1.1.0&CONSUMER-ID=[Your App ID]&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&itemId='+request.query['productId']+'&maxResults=20', (err, res, body) => {
            
         if (err!=null) { result.simdetails={}; }
           //console.log(body.url);
@@ -49,9 +49,7 @@ app.get('/prodetails', function(request,response){
 
         
         
-
-        //console.log('https://www.googleapis.com/customsearch/v1?q='+encodeURIComponent(request.query['prodtitle'])+'&cx=005727671630136553875:wfdjaisflsa&imgSize=huge&imgType=news&num=8&searchType=image&key=AIzaSyCoI5gOBinObWbrNFSr9ftHpYJ4aCGJ2fM')
-        requestLib.get('https://www.googleapis.com/customsearch/v1?q='+encodeURIComponent(request.query['prodtitle'])+'&cx=005727671630136553875:wfdjaisflsa&imgSize=huge&imgType=news&num=8&searchType=image&key=AIzaSyCoI5gOBinObWbrNFSr9ftHpYJ4aCGJ2fM', (err, res, body) => {
+        requestLib.get('https://www.googleapis.com/customsearch/v1?q='+encodeURIComponent(request.query['prodtitle'])+'&cx=[Your Search Engine Key]:wfdjaisflsa&imgSize=huge&imgType=news&num=8&searchType=image&key=[Your API Key]', (err, res, body) => {
            
             if (err!=null) { result.prodimages={}; }
               //console.log(body.url);
@@ -68,7 +66,7 @@ app.get('/prodetails', function(request,response){
 });
 
 app.get('/callapi', function(request,response){
-    Url="http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsAdvanced&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=BhanuAro-WebTech-PRD-116e557a4-e7b7ee98&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&paginationInput.entriesPerPage=50&keywords="+encodeURIComponent(request.query['keyword']);
+    Url="http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsAdvanced&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=[Your App ID]&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&paginationInput.entriesPerPage=50&keywords="+encodeURIComponent(request.query['keyword']);
     if(request.query['category']!='all'){
         Url+='&categoryId='+request.query['category'];
     }
